@@ -14,5 +14,8 @@
     "modules"
   ],
   "author": "Interfaced",
-  "license": "MIT"
+  "license": "MIT",
+  "dependencies": {
+    "espree": "^4.0.0"
+  }
 }
