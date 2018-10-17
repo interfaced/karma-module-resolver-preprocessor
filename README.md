@@ -2,9 +2,9 @@
 [Karma](http://karma-runner.github.io) preprocessor to resolve ES6 modules.
 
 ## The problem
-Starting version *unreleased* Karma properly supports ES6 modules when running in a suitable environment. Browsers module implementation is limited however to local modules (i.e. `./foo.js`) and browsers will not resolve path missing extension leaving that to the server.
+Starting version *unreleased* Karma properly supports ES6 modules when running in a suitable environment. Browsers module implementation is limited however to local modules (i.e. `./foo.js`) and browsers will not resolve paths missing extension leaving that to the server.
 
-This preprocessor solves both problems by rewriting import declarations in files on the fly and replacing aliased with relative paths as well as adding extensions if necessary.
+This preprocessor solves both problems by rewriting import declarations on the fly and replacing aliased path with relative ones as well as adding extensions if necessary allowing for native ES6 modules testing without compiling or bundling.
 
 ## Installation
 ```bash
@@ -22,8 +22,7 @@ module.exports = (config) => {
 			{type: 'module', pattern: 'alias-root/**/*.js'}
 		],
 		preprocessors: {
-			'test/**/*.js': ['module-resolver'],
-			'alias-root/**/*.js': ['module-resolver']
+			'test/**/*.js': ['module-resolver']
 		},
 		moduleResolverPreprocessor: {
 			addExtension: 'js',
@@ -79,7 +78,7 @@ A function to be called instead of normal rewriting.
 
 Takes two arguments:
 * A string containing imported file path,
-* File object for currently processed file containing some meta information, see [karma preprocessor documentation](http://karma-runner.github.io/3.0/dev/plugins.html)
+* File object for currently processed file containing some meta information, see [karma preprocessor documentation](http://karma-runner.github.io/3.0/dev/plugins.html).
 
 Return value: string.
 
