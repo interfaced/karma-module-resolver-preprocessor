@@ -1,0 +1,18 @@
+{
+  "name": "karma-module-alias-preprocessor",
+  "version": "0.0.1",
+  "description": "Karma preprocessor to resolve ES6 module aliases",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "karma-plugin",
+    "karma-preprocessor",
+    "es6-modules",
+    "alias",
+    "modules"
+  ],
+  "author": "Interfaced",
+  "license": "MIT"
+}
