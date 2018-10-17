@@ -1,5 +1,5 @@
 {
-  "name": "karma-module-alias-preprocessor",
+  "name": "karma-module-resolver-preprocessor",
   "version": "0.0.1",
   "description": "Karma preprocessor to resolve ES6 module aliases",
   "main": "index.js",

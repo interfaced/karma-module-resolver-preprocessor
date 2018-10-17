@@ -14,8 +14,8 @@ const isLocalPath = (filename) =>
 
 const hasExtension = (filename, extension) => filename.endsWith('.' + extension);
 
-const createModuleAliasPreprocessor = (karmaConfig, args = {}, config = {}, logger, helper) => {
-	const log = logger.create('preprocessor:module-alias');
+const createModuleResolverPreprocessor = (karmaConfig, args = {}, config = {}, logger, helper) => {
+	const log = logger.create('preprocessor:module-resolver');
 	const options = helper.merge({}, defaultOptions, args, config);
 
 	// Process longer aliases first to avoid collision with shorter ones
@@ -85,9 +85,9 @@ const createModuleAliasPreprocessor = (karmaConfig, args = {}, config = {}, logg
 	}
 };
 
-createModuleAliasPreprocessor.$inject = ['config', 'args', 'config.moduleAliasPreprocessor', 'logger', 'helper'];
+createModuleResolverPreprocessor.$inject = ['config', 'args', 'config.moduleResolverPreprocessor', 'logger', 'helper'];
 
 // PUBLISH DI MODULE
 module.exports = {
-	'preprocessor:module-alias': ['factory', createModuleAliasPreprocessor]
+	'preprocessor:module-resolver': ['factory', createModuleResolverPreprocessor]
 };
