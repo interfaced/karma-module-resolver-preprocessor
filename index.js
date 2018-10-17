@@ -72,12 +72,14 @@ const createModuleResolverPreprocessor = (karmaConfig, args = {}, config = {}, l
 			// Imports can only be at top level as per specification
 			if (node.type === 'ImportDeclaration' && node.source.type === 'Literal') {
 				const resolved = resolvePath(node.source.value, file);
-				const replacement = node.source.raw.replace(node.source.value, resolved);
-				log.debug('Replacing import from "%s" with "%s"', node.source.value, replacement);
-				patchedContent =
-					patchedContent.slice(0, node.source.start) +
-					replacement +
-					patchedContent.slice(node.source.end);
+				if (resolved !== node.source.value) {
+					const replacement = node.source.raw.replace(node.source.value, resolved);
+					log.debug('Replacing import from "%s" with "%s"', node.source.value, resolved);
+					patchedContent =
+						patchedContent.slice(0, node.source.start) +
+						replacement +
+						patchedContent.slice(node.source.end);
+				}
 			}
 		}
 
