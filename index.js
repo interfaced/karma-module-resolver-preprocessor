@@ -37,13 +37,13 @@ const createModuleResolverPreprocessor = (karmaConfig, args = {}, config = {}, l
 			result += '.' + options.addExtension;
 		}
 
-		if (!isLocalPath(modulePath)) {
+		if (!isLocalPath(result)) {
 			for (const alias of sortedAliases) {
-				if (modulePath.startsWith(alias)) {
-					const pathUnderAlias = path.relative(alias, modulePath);
+				if (result.startsWith(alias)) {
+					const pathUnderAlias = path.relative(alias, result);
 					const fullImportPath = path.resolve(options.aliases[alias], pathUnderAlias);
 
-					result = path.relative(path.    dirname(file.path), fullImportPath);
+					result = path.relative(path.dirname(file.path), fullImportPath);
 					if (!isLocalPath(result)) {
 						result = './' + result;
 					}
