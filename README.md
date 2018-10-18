@@ -76,9 +76,7 @@ Default value: `null`
 
 A function to be called instead of normal rewriting.
 
-Takes two arguments:
-* A string containing imported file path,
-* File object for currently processed file containing some meta information, see [karma preprocessor documentation](http://karma-runner.github.io/3.0/dev/plugins.html).
+Takes a single argument: A string containing imported file path.
 
 Return value: string.
 

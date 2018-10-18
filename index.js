@@ -26,9 +26,9 @@ const createModuleResolverPreprocessor = (karmaConfig, args = {}, config = {}, l
 		options.aliases[alias] = path.resolve(karmaConfig.basePath, options.aliases[alias]);
 	}
 
-	const resolvePath = (modulePath, file) => {
+	const resolvePath = (modulePath) => {
 		if (options.customResolver) {
-			return options.customResolver(modulePath, file);
+			return options.customResolver(modulePath);
 		}
 
 		let result = modulePath;
@@ -41,12 +41,7 @@ const createModuleResolverPreprocessor = (karmaConfig, args = {}, config = {}, l
 			for (const alias of sortedAliases) {
 				if (result.startsWith(alias)) {
 					const pathUnderAlias = path.relative(alias, result);
-					const fullImportPath = path.resolve(options.aliases[alias], pathUnderAlias);
-
-					result = path.relative(path.dirname(file.path), fullImportPath);
-					if (!isLocalPath(result)) {
-						result = './' + result;
-					}
+					result = path.resolve(options.aliases[alias], pathUnderAlias);
 				}
 			}
 		}
@@ -71,7 +66,7 @@ const createModuleResolverPreprocessor = (karmaConfig, args = {}, config = {}, l
 		for (const node of ast.body.reverse()) {
 			// Imports can only be at top level as per specification
 			if (node.type === 'ImportDeclaration' && node.source.type === 'Literal') {
-				const resolved = resolvePath(node.source.value, file);
+				const resolved = resolvePath(node.source.value);
 				if (resolved !== node.source.value) {
 					const replacement = node.source.raw.replace(node.source.value, resolved);
 					log.debug('Replacing import from "%s" with "%s"', node.source.value, resolved);
