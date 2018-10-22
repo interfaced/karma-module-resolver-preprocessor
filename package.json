@@ -1,20 +1,34 @@
 {
   "name": "karma-module-resolver-preprocessor",
-  "version": "0.0.1",
-  "description": "Karma preprocessor to resolve ES6 module aliases",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
+  "version": "1.0.0",
+  "description": "Karma preprocessor to resolve ES6 modules",
+  "license": "MIT",
   "keywords": [
     "karma-plugin",
     "karma-preprocessor",
-    "es6-modules",
-    "alias",
-    "modules"
+    "es6",
+    "modules",
+    "alias"
   ],
-  "author": "Interfaced",
-  "license": "MIT",
+  "homepage": "https://github.com/interfaced/karma-module-resolver-preprocessor",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/interfaced/karma-module-resolver-preprocessor.git"
+  },
+  "author": {
+    "name": "Interfaced",
+    "url": "https://interfaced.tv",
+    "email": "info@interfaced.tv"
+  },
+  "contributors": [
+    "Ilya Kalashnikov"
+  ],
+  "files": [
+    "index.js"
+  ],
+  "engines": {
+    "node": ">= 6.0.0"
+  },
   "dependencies": {
     "espree": "^4.0.0"
   },
