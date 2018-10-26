@@ -2,7 +2,7 @@
 [Karma](http://karma-runner.github.io) preprocessor to resolve ES6 modules.
 
 ## The problem
-Karma can natively run ES6 modules when running in a suitable environment (a modern browser). Browsers module implementation is limited however to local modules (i.e. `./foo.js`) and browsers will not resolve paths missing extension leaving that to the server.
+Starting version `3.1.0` Karma can natively run ES6 modules when running in a suitable environment (a modern browser). Browsers module implementation is limited however to local modules (i.e. `./foo.js`) and browsers will not resolve paths missing extension leaving that to the server.
 
 This preprocessor solves both problems by rewriting import declarations on the fly and replacing aliased paths with absolute ones as well as adding extensions if necessary allowing for native ES6 modules testing without compiling or bundling.
 
@@ -95,8 +95,3 @@ import Foo from 'foo';
 // Rewrites to
 import Foo from 'http://example.com/foo';
 ```
-
-## Karma ES6 modules support
-As of version `3.0.0` Karma has limited support of modules: It can integrate them, but there's [a bug](https://github.com/karma-runner/karma/issues/2955) preventing tests described in modules from running. It is fixed in develop branch, but there's no release with the fix and no information on when it's going to be available.
-
-There are some workarounds for the issue: Using `customContextFile` to substitute `3.0.0` `context.html` with a newer one and delaying `__karma__.loaded` call until DOM `load` event. See Karma GitHub for details.
