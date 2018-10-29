@@ -71,8 +71,10 @@ Example:
 import Foo from 'alias/foo';
 
 // Rewrites to
-import Foo from '/Absolute/Path/To/alias-root/foo';
+import Foo from '/absolute/Path/To/alias-root/foo';
 ```
+
+Note `/absolute/` prefix. This is the web route Karma adds to all urls leading to absolute files. It is important to keep it to avoid referencing same file with different urls. 
 
 #### `customResolver`
 Default value: `null`

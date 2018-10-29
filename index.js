@@ -14,6 +14,14 @@ const isLocalPath = (filename) =>
 
 const hasExtension = (filename, extension) => filename.endsWith('.' + extension);
 
+// This is copypasted from karma middleware
+const filePathToUrlPath = (filePath, basePath, urlRoot, proxyPath) => {
+	if (filePath.startsWith(basePath)) {
+		return proxyPath + urlRoot.substr(1) + 'base' + filePath.substr(basePath.length)
+	}
+	return proxyPath + urlRoot.substr(1) + 'absolute' + filePath
+};
+
 const createModuleResolverPreprocessor = (karmaConfig, args = {}, config = {}, logger, helper) => {
 	const log = logger.create('preprocessor:module-resolver');
 	const options = helper.merge({}, defaultOptions, args, config);
@@ -41,7 +49,13 @@ const createModuleResolverPreprocessor = (karmaConfig, args = {}, config = {}, l
 			for (const alias of sortedAliases) {
 				if (result.startsWith(alias)) {
 					const pathUnderAlias = path.relative(alias, result);
-					result = path.resolve(options.aliases[alias], pathUnderAlias);
+					const absolutePath = path.resolve(options.aliases[alias], pathUnderAlias);
+					result = filePathToUrlPath(
+						absolutePath,
+						karmaConfig.basePath,
+						karmaConfig.urlRoot,
+						karmaConfig.upstreamProxy ? karmaConfig.upstreamProxy.path : '/'
+					)
 				}
 			}
 		}
