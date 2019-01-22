@@ -28,6 +28,7 @@ module.exports = (config) => {
 		moduleResolverPreprocessor: {
 			addExtension: 'js',
 			customResolver: null,
+			ecmaVersion: 6,
 			aliases: {
 				project: "./project"
 			}
@@ -97,3 +98,9 @@ import Foo from 'foo';
 // Rewrites to
 import Foo from 'http://example.com/foo';
 ```
+
+#### `ecmaVersion`
+
+Default value: `6`
+
+ECMAScript version as accepted by [espree](https://github.com/eslint/espree), e.g. `6`, `9`, `2015`, `2018`.

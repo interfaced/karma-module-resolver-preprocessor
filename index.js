@@ -4,6 +4,7 @@ const path = require('path');
 const defaultOptions = {
 	addExtension: 'js',
 	customResolver: null,
+	ecmaVersion: 6,
 	aliases: {}
 };
 
@@ -68,6 +69,7 @@ const createModuleResolverPreprocessor = (karmaConfig, args = {}, config = {}, l
 		let ast = null;
 		try {
 			ast = espree.parse(content, {
+				ecmaVersion: options.ecmaVersion,
 				sourceType: 'module'
 			});
 		} catch (e) {
