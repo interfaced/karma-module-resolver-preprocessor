@@ -1,3 +1,6 @@
+# 1.1.1 (22.01.2019)
+* Add `ecmaVersion` option.
+
 # 1.1.0 (29.10.2018)
 * Resolve file names using karma web roots (`/absolute/` and `/base/`) to make imports consistent with files included into html pages. 
 
