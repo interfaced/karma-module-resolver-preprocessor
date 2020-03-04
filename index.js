@@ -73,7 +73,7 @@ const createModuleResolverPreprocessor = (karmaConfig, args = {}, config = {}, l
 				sourceType: 'module'
 			});
 		} catch (e) {
-			log.error('%s\\n  at %s', e.message, file.originalPath);
+			log.error('%s\n  at %s', e.message, file.originalPath);
 			done(e, null);
 			return;
 		}
@@ -82,7 +82,8 @@ const createModuleResolverPreprocessor = (karmaConfig, args = {}, config = {}, l
 		for (const node of ast.body.reverse()) {
 			// Imports can only be at top level as per specification
 			if (node.type === 'ImportDeclaration' && node.source.type === 'Literal') {
-				const resolved = resolvePath(node.source.value);
+				const resolved = resolvePath(node.source.value)
+					.replace(/\\/g, '\\\\'); // Great job, Windows
 				if (resolved !== node.source.value) {
 					const replacement = node.source.raw.replace(node.source.value, resolved);
 					log.debug('Replacing import from "%s" with "%s"', node.source.value, resolved);
