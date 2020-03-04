@@ -1,3 +1,6 @@
+# 1.1.2 (04.03.2020)
+* Fix paths resolution on Windows
+
 # 1.1.1 (22.01.2019)
 * Add `ecmaVersion` option.
 
