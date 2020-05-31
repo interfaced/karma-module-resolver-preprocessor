@@ -7,6 +7,7 @@
     "karma-plugin",
     "karma-preprocessor",
     "es6",
+    "esm",
     "modules",
     "alias"
   ],
@@ -30,7 +31,9 @@
     "node": ">= 6.0.0"
   },
   "dependencies": {
-    "espree": "^6.2.0"
+    "@babel/parser": "^7.10.2",
+    "@babel/traverse": "^7.10.1",
+    "@babel/types": "^7.10.2"
   },
   "peerDependencies": {
     "karma": "^4.4.1"
