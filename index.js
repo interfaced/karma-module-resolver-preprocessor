@@ -1,13 +1,5 @@
 const path = require("path");
-const { parse } = require("@babel/parser");
-const { default: traverse } = require("@babel/traverse");
-const {
-  isImportDeclaration,
-  isStringLiteral,
-  isImport,
-  isExportNamedDeclaration,
-  isExportAllDeclaration,
-} = require("@babel/types");
+const { init, parse } = require("es-module-lexer");
 
 const defaultOptions = {
   addExtension: "js",
@@ -100,41 +92,18 @@ const createModuleResolverPreprocessor = (
     return result;
   };
 
-  return (content, file, done) => {
+  return async (content, file, done) => {
+    await init;
     log.debug('Processing "%s".', file.originalPath);
-
     try {
-      const ast = parse(content, {
-        sourceType: "module",
-        plugins: ["dynamicImport", "exportNamespaceFrom"],
-      });
-
-      let patchedContent = [];
+      const [imports, exports] = parse(content);
       let pointer = 0;
-      traverse(ast, {
-        enter(path) {
-          const node = path.node;
-          if (
-            isStringLiteral(node) &&
-            (isImport(path.parent.callee) ||
-              isImportDeclaration(path.parent) ||
-              isExportNamedDeclaration(path.parent) ||
-              isExportAllDeclaration(path.parent))
-          ) {
-            const resolved = resolvePath(node.value).replace(/\\/g, "\\\\"); // Great job, Windows
-            if (resolved !== node.value) {
-              log.debug(
-                'Replacing import from "%s" with "%s"',
-                node.value,
-                resolved
-              );
-              patchedContent.push(
-                content.slice(pointer, node.start + 1) + resolved
-              );
-              pointer = node.end - 1;
-            }
-          }
-        },
+      const patchedContent = imports.map(({ s, e }) => {
+        const name = content.substring(s, e);
+        const resolved = resolvePath(name).replace(/\\/g, "\\\\"); // Great job, Windows
+        const text = content.slice(pointer, s) + resolved;
+        pointer = e;
+        return text;
       });
       patchedContent.push(content.slice(pointer, content.length));
       done(patchedContent.join(""));
