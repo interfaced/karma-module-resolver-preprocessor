@@ -30,9 +30,9 @@
     "node": ">= 6.0.0"
   },
   "dependencies": {
-    "espree": "^6.2.0"
+    "espree": "^9.0.0"
   },
   "peerDependencies": {
-    "karma": "^4.4.1"
+    "karma": "^6.3.4"
   }
 }
